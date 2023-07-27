@@ -6,7 +6,7 @@ module for pascal's triangle
 
 def pascal_triangle(n):
     """
-    returns pascal's triangle 
+    returns pascal's triangle
     """
     if n <= 0:
         return []
