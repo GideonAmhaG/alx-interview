@@ -1,4 +1,8 @@
-""" module for pascal's triangle """
+#!/usr/bin/python3
+"""
+module for pascal's triangle
+"""
+
 
 def pascal_triangle(n):
     """
