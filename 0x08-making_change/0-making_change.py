@@ -19,7 +19,7 @@ def makeChange(coins, total):
     """
     the aforementioned function
     """
-    if total < 0:
+    if total <= 0:
         return -1
 
     dp = [total + 1] * (total + 1)
