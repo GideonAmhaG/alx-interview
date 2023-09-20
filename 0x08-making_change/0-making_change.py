@@ -19,22 +19,14 @@ def makeChange(coins, total):
     """
     the aforementioned function
     """
-    memo = {}
-
     if total <= 0:
         return 0
-
-    if total in memo:
-        return memo[total]
-
-    dp = [total + 1] * (total + 1)
-    dp[0] = 0
-
-    for i in range(1, total + 1):
-        for j in coins:
-            if i - j >= 0:
-                dp[i] = min(dp[i], 1 + dp[i - j])
-
-    memo[total] = dp[total] if dp[total] != total + 1 else -1
-
-    return memo[total]
+    coins.sort(reverse=True)
+    count = 0
+    for coin in coins:
+        while total - coin >= 0:
+            total -= coin
+            count += 1
+        if total == 0:
+            return count
+    return -1
