@@ -20,6 +20,8 @@ def island_perimeter(grid):
     """
     the aforementioned function
     """
+    if not grid:
+        return 0
     visit = set()
 
     def dfs(i, j):
