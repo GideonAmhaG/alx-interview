@@ -33,7 +33,6 @@ def island_perimeter(grid):
             return 0
 
         visit.add((i, j))
-        per = 0
         per = dfs(i, j + 1)
         per += dfs(i + 1, j)
         per += dfs(i, j - 1)
