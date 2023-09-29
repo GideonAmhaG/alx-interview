@@ -20,26 +20,16 @@ def island_perimeter(grid):
     """
     the aforementioned function
     """
-    visit = set()
-
-    def dfs(i, j):
-        """
-        depth for search function
-        """
-        if i >= len(grid) or j >= len(grid[0]) or i < 0 or j < 0 or \
-                grid[i][j] == 0:
-            return 1
-        if (i, j) in visit:
-            return 0
-
-        visit.add((i, j))
-        per = dfs(i, j + 1)
-        per += dfs(i + 1, j)
-        per += dfs(i, j - 1)
-        per += dfs(i - 1, j)
-        return per
-
-    for i in range(len(grid)):
-        for j in range(len(grid[0])):
-            if grid[i][j]:
-                return dfs(i, j)
+    per = 0
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):
+            if grid[row][col] == 1:
+                if row == 0 or grid[row - 1][col] == 0:
+                    per += 1 
+                if row == (len(grid) - 1) or grid[row + 1][col] == 0:
+                    per += 1  
+                if col == 0 or grid[row][col - 1] == 0:
+                    per += 1  
+                if col == (len(grid[0]) - 1) or grid[row][col + 1] == 0:
+                    per += 1 
+    return per
