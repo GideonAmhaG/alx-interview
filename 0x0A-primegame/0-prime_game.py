@@ -23,10 +23,10 @@ def isWinner(x, nums):
         return None
     n = max(nums)
     sieve = [True for _ in range(max(n + 1, 2))]
-    for i in range(2, int((n**0.5) + 1):
+    for i in range(2, int(pow(n, 0.5)) + 1):
         if not sieve[i]:
             continue
-        for j in range(i * i, n + 1, i):
+        for j in range(i*i, n + 1, i):
             sieve[j] = False
 
     sieve[0] = sieve[1] = False
