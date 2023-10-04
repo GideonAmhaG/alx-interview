@@ -11,32 +11,28 @@ def isWinner(x, nums):
         The name of the player that won the most rounds, or None if the
         winner cannot be determined.
     """
-    def isPrime(n):
-        if n < 2:
-            return False
-        for i in range(2, int(n ** 0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
-
-    def playGame(n):
-        primes = [i for i in range(2, n + 1) if isPrime(i)]
-        player = 0
-        while primes:
-            p = primes.pop(0)
-            player = (player + 1) % 2
-            for i in range(p, n + 1, p):
-                if i in primes:
-                    primes.remove(i)
-        return player
-
-    winners = []
-    for n in nums:
-        winners.append(playGame(n))
-
-    if winners.count(0) > winners.count(1):
-        return "Maria"
-    elif winners.count(1) > winners.count(0):
-        return "Ben"
-    else:
+    if not nums or x < 1:
         return None
+    n = max(nums)
+    sieve = [True for _ in range(max(n + 1, 2))]
+    for i in range(2, int(pow(n, 0.5)) + 1):
+        if not sieve[i]:
+            continue
+        for j in range(i*i, n + 1, i):
+            sieve[j] = False
+
+    sieve[0] = sieve[1] = False
+    c = 0
+    for i in range(len(sieve)):
+        if sieve[i]:
+            c += 1
+        sieve[i] = c
+
+    player1 = 0
+    for n in nums:
+        player1 += sieve[n] % 2 == 1
+    if player1 * 2 == len(nums):
+        return None
+    if player1 * 2 > len(nums):
+        return "Maria"
+    return "Ben"
