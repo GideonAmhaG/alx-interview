@@ -11,90 +11,32 @@ def isWinner(x, nums):
         The name of the player that won the most rounds, or None if the
         winner cannot be determined.
     """
+    def isPrime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n ** 0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
 
-    # Initialize the winners' scores.
-    maria_wins = 0
-    ben_wins = 0
+    def playGame(n):
+        primes = [i for i in range(2, n + 1) if isPrime(i)]
+        player = 0
+        while primes:
+            p = primes.pop(0)
+            player = (player + 1) % 2
+            for i in range(p, n + 1, p):
+                if i in primes:
+                    primes.remove(i)
+        return player
 
-    # Play each round of the game.
-    for i in range(x):
-        # Maria always goes first.
-        maria_move = find_next_prime(nums)
-        if maria_move is None:
-            ben_wins += 1
-            break
+    winners = []
+    for n in nums:
+        winners.append(playGame(n))
 
-        # Remove Maria's move and its multiples from the set.
-        remove_multiples(nums, maria_move)
-
-        # Ben's move.
-        ben_move = find_next_prime(nums)
-        if ben_move is None:
-            ben_wins += 1
-            break
-
-        # Remove Ben's move and its multiples from the set.
-        remove_multiples(nums, ben_move)
-
-    # Determine the winner.
-    if maria_wins > ben_wins:
+    if winners.count(0) > winners.count(1):
         return "Maria"
-    elif ben_wins > maria_wins:
+    elif winners.count(1) > winners.count(0):
         return "Ben"
     else:
         return None
-
-
-def find_next_prime(nums):
-    """
-    Finds the next prime number in the given array of integers.
-
-    Args:
-        nums: An array of integers.
-
-    Returns:
-        The next prime number in the array, or None if there are no prime
-        numbers left.
-    """
-
-    for num in nums:
-        if is_prime(num):
-            return num
-
-    return None
-
-
-def remove_multiples(nums, prime):
-    """
-    Removes all multiples of the given prime number from the given array of
-    integers.
-
-    Args:
-        nums: An array of integers.
-        prime: A prime number.
-    """
-
-    for i in range(len(nums) - 1, -1, -1):
-        if nums[i] % prime == 0:
-            nums.remove(nums[i])
-
-
-def is_prime(num):
-    """
-    Checks if the given number is a prime number.
-
-    Args:
-        num: An integer.
-
-    Returns:
-        True if the number is prime, False otherwise.
-    """
-
-    if num <= 1:
-        return False
-
-    for i in range(2, int(num**0.5) + 1):
-        if num % i == 0:
-            return False
-
-    return True
