@@ -6,6 +6,7 @@ number from the set and removing that number and its multiples from the set.
 The player that cannot make a move loses the game.
 """
 
+
 def isWinner(x, nums):
     """
     Determines the winner of the Maria and Ben game.
@@ -18,6 +19,8 @@ def isWinner(x, nums):
         The name of the player that won the most rounds, or None if the
         winner cannot be determined.
     """
+    if not nums or x < 1:
+        return None
 
     # Initialize the winners' scores.
     maria_wins = 0
@@ -60,7 +63,8 @@ def find_next_prime(nums):
         nums: An array of integers.
 
     Returns:
-        The next prime number in the array, or None if there are no prime numbers left.
+        The next prime number in the array, or None if there are no prime
+        numbers left.
     """
 
     for num in nums:
@@ -72,7 +76,8 @@ def find_next_prime(nums):
 
 def remove_multiples(nums, prime):
     """
-    Removes all multiples of the given prime number from the given array of integers.
+    Removes all multiples of the given prime number from the given array
+    of integers.
 
     Args:
         nums: An array of integers.
